@@ -2,6 +2,8 @@ api/
 node_modules/
 build/
 
+.eslintcache
+
 # Created by https://www.toptal.com/developers/gitignore/api/webstorm,vscode
 # Edit at https://www.toptal.com/developers/gitignore?templates=webstorm,vscode
 
