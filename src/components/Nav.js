@@ -46,6 +46,10 @@ class Nav extends Component {
                                     </svg>
                                 </button>
                             </div>
+                            <div className="hidden md:ml-6 md:flex md:items-center md:space-x-4">
+                                <a href="#"
+                                   className="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium">Home</a>
+                            </div>
                         </div>
                     </div>
                 </div>
