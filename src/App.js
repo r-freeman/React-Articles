@@ -1,10 +1,15 @@
 import React from 'react';
-import Nav from './components/Nav';
+import {BrowserRouter as Router} from 'react-router-dom';
+import Main from './Main';
 
 class App extends React.Component {
     render() {
         return (
-            <Nav />
+            <Router>
+                <div className="App">
+                    <Main/>
+                </div>
+            </Router>
         )
     }
 }
