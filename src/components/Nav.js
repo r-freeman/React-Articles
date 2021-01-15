@@ -1,5 +1,6 @@
 import {Component} from 'react';
-import {Link} from 'react-router-dom';
+import {NavLink} from 'react-router-dom';
+import NavItem from './NavItem';
 
 class Nav extends Component {
     constructor(props) {
@@ -19,6 +20,7 @@ class Nav extends Component {
 
     render() {
         const isOpen = this.state.isOpen;
+        const pages = ['Login', 'Register'];
 
         return (
             <nav className="bg-gray-800">
@@ -51,24 +53,21 @@ class Nav extends Component {
                                     }
                                 </button>
                             </div>
-
-
+                            <div className="flex-shrink-0 flex items-center">
+                                <NavLink to="/" className="text-white">
+                                    <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                         xmlns="http://www.w3.org/2000/svg">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
+                                              d="M6 5c7.18 0 13 5.82 13 13M6 11a7 7 0 017 7m-6 0a1 1 0 11-2 0 1 1 0 012 0z"/>
+                                    </svg>
+                                </NavLink>
+                            </div>
                             <div className="hidden md:ml-6 md:flex md:items-center md:space-x-4">
-                                <Link
-                                    to="/"
-                                    className="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium">
-                                    Home
-                                </Link>
-                                <Link
-                                    to="/login"
-                                    className="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium">
-                                    Login
-                                </Link>
-                                <Link
-                                    to="/register"
-                                    className="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium">
-                                    Register
-                                </Link>
+                                {
+                                    pages.map(page => (
+                                        <NavItem page={page}/>
+                                    ))
+                                }
                             </div>
                         </div>
                     </div>
