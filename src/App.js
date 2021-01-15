@@ -1,15 +1,34 @@
 import React from 'react';
-import {BrowserRouter as Router} from 'react-router-dom';
-import Main from './Main';
+import Routes from './Routes';
+import Nav from 'components/Nav';
 
 class App extends React.Component {
+    API_URL = 'http://localhost:8000/api/'
+
+    constructor(props) {
+        super(props);
+
+        const user = localStorage.getItem('user')
+        this.state = {
+            user,
+            articles: [],
+            categories: []
+        }
+    }
+
+    async componentDidMount() {
+        // fetch articles, categories here
+
+    }
+
     render() {
         return (
-            <Router>
-                <div className="App">
-                    <Main/>
-                </div>
-            </Router>
+            <div className="App">
+                <header>
+                    <Nav/>
+                </header>
+                <Routes/>
+            </div>
         )
     }
 }
