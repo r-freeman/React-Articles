@@ -2,7 +2,7 @@ import {Transition} from '@headlessui/react';
 import React, {useState} from 'react';
 import {NavLink} from 'react-router-dom';
 
-function DropdownMenu() {
+function Dropdown() {
     const [isOpen, setIsOpen] = useState(false)
 
     return (
@@ -29,12 +29,6 @@ function DropdownMenu() {
                 leaveFrom={"transform opacity-100 scale-100"}
                 leaveTo={"transform opacity-0 scale-95"}
             >
-                <NavLink exact to="/"
-                         className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                         role="menuitem">Profile</NavLink>
-                <NavLink exact to="/"
-                         className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                         role="menuitem">Settings</NavLink>
                 <NavLink to="/logout"
                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                          role="menuitem">Log out</NavLink>
@@ -43,4 +37,4 @@ function DropdownMenu() {
     )
 }
 
-export default DropdownMenu;
+export default Dropdown;
