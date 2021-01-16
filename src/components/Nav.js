@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {NavLink} from 'react-router-dom';
-import DropdownMenu from './DropdownMenu';
+import Dropdown from './Dropdown';
 
 class Nav extends Component {
     constructor(props) {
@@ -19,16 +19,19 @@ class Nav extends Component {
     }
 
     render() {
-        const isLoggedIn = false;
+        const isLoggedIn = this.props.user !== null
         const isMenuOpen = this.state.isMenuOpen;
 
         return (
             <nav className="bg-gray-800">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="max-w-full mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex items-center justify-between h-16">
                         <div className="flex items-center">
                             <div className="flex-shrink-0">
-                                <NavLink exact to="/" className="text-white">
+                                <NavLink
+                                    exact
+                                    to="/"
+                                    className="text-white">
                                     <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                                          xmlns="http://www.w3.org/2000/svg">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
@@ -37,15 +40,19 @@ class Nav extends Component {
                                 </NavLink>
                             </div>
                             <div className="hidden md:ml-6 md:flex md:items-center md:space-x-4">
-                                <NavLink exact to="/"
-                                         activeClassName="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium"
-                                         className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
+                                <NavLink
+                                    exact
+                                    to="/"
+                                    activeClassName="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium"
+                                    className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
                                     Home
                                 </NavLink>
                                 {isLoggedIn &&
-                                <NavLink to="/articles"
-                                         activeClassName="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium"
-                                         className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
+                                <NavLink
+                                    exact
+                                    to="/articles"
+                                    activeClassName="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium"
+                                    className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
                                     Articles
                                 </NavLink>
                                 }
@@ -59,25 +66,29 @@ class Nav extends Component {
                                     <span className="sr-only">View notifications</span>
                                     <svg className="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none"
                                          viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                                        <path strokeLinecap="round" strokeLinejoin="round" stroke-width="2"
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
                                               d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
                                     </svg>
                                 </button>
                                 }
                                 {isLoggedIn &&
-                                <DropdownMenu/>
+                                <Dropdown/>
                                 }
                                 {!isLoggedIn &&
                                 <div className="flex items-center space-x-4">
-                                    <NavLink to="/login"
-                                             activeClassName="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium"
-                                             className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
+                                    <NavLink
+                                        exact
+                                        to="/login"
+                                        activeClassName="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium"
+                                        className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
                                         Log in
                                     </NavLink>
-                                    <NavLink to="/register"
-                                             as="button"
-                                             type="button"
-                                             className="relative inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-500 hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-indigo-500">
+                                    <NavLink
+                                        exact
+                                        to="/register"
+                                        as="button"
+                                        type="button"
+                                        className="relative inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-500 hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-indigo-500">
                                         <span>Register</span>
                                     </NavLink>
                                 </div>
@@ -112,30 +123,39 @@ class Nav extends Component {
                     {isMenuOpen &&
                     <div className="sm:hidden">
                         <div className="px-2 pt-2 pb-3 space-y-1">
-                            <NavLink exact to="/"
-                                     activeClassName="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium"
-                                     className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">
+                            <NavLink
+                                exact
+                                to="/"
+                                activeClassName="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium"
+                                className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">
                                 Home
                             </NavLink>
                             {isLoggedIn &&
-                            <NavLink to="/articles"
-                                     activeClassName="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium"
-                                     className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">
+                            <NavLink
+                                sexact
+                                to="/articles"
+                                activeClassName="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium"
+                                className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">
                                 Articles
                             </NavLink>
                             }
                             {!isLoggedIn &&
                             <div className="space-y-1">
-                                <NavLink to="/login"
-                                         className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">
+                                <NavLink
+                                    exact
+                                    to="/login"
+                                    activeClassName="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium"
+                                    className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">
                                     Log in
                                 </NavLink>
-                                <NavLink to="/register"
-                                         as="button"
-                                         type="button"
-                                         className="block px-3 py-2 shadow-sm text-base font-medium rounded-md w-100 text-white bg-indigo-500 hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-indigo-500">
-                                    <span>Register</span>
-                                </NavLink>
+                                <button type="button"
+                                        className="px-3 py-2 shadow-sm text-base font-medium rounded-md text-white bg-indigo-500 hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-indigo-500">
+                                    <NavLink
+                                        exact
+                                        to="/register">
+                                        <span>Register</span>
+                                    </NavLink>
+                                </button>
                             </div>
                             }
                         </div>
@@ -149,10 +169,10 @@ class Nav extends Component {
                                 </div>
                                 <div className="ml-3">
                                     <div className="text-base font-medium text-white">
-                                        Tom Cook
+                                        {this.props.user.name}
                                     </div>
                                     <div className="text-sm font-medium text-gray-400">
-                                        tom@example.com
+                                        {this.props.user.email}
                                     </div>
                                 </div>
                                 <button
@@ -166,13 +186,10 @@ class Nav extends Component {
                                 </button>
                             </div>
                             <div className="mt-3 px-2 space-y-1">
-                                <NavLink exact to="/"
-                                         className="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700">
-                                    Profile</NavLink>
-                                <NavLink exact to="/"
-                                         className="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700">Settings</NavLink>
-                                <NavLink to="/logout"
-                                         className="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700">Log
+                                <NavLink
+                                    exact
+                                    to="/logout"
+                                    className="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700">Log
                                     out</NavLink>
                             </div>
                         </div>
