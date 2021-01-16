@@ -6,10 +6,10 @@ class NavItem extends Component {
         const activeClass = "bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium";
 
         return (
-            <NavLink to={`/${this.props.page.toLowerCase()}`}
+            <NavLink to={`/${this.props.link}`}
                      activeClassName={activeClass}
                      className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
-                {this.props.page}
+                {this.props.title}
             </NavLink>
         )
     }
