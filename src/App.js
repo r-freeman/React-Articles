@@ -6,6 +6,7 @@ import Nav from 'components/Nav';
 
 // pages
 import Home from './pages/Home';
+import Articles from './pages/Articles';
 import Login from './pages/Login';
 import Register from './pages/Register';
 
@@ -55,11 +56,21 @@ class App extends React.Component {
                 </header>
                 <Switch>
                     <Route exact path='/'
-                           render={() => <Home articles={this.state.articles}/>}/>
+                           render={() => <Home
+                               articles={this.state.articles}
+                               categories={this.state.categories}/>
+                           }/>
+                    <Route exact path='/articles'
+                           render={() => <Articles
+                               articles={this.state.articles}
+                               categories={this.state.categories}/>
+                           }/>
                     <Route exact path='/login'
-                           render={() => <Login user={this.state.user}/>}/>
+                           render={() => <Login
+                               user={this.state.user}/>}/>
                     <Route exact path='/register'
-                           render={() => <Register user={this.state.user}/>}/>
+                           render={() => <Register
+                               user={this.state.user}/>}/>
                 </Switch>
             </div>
         )
