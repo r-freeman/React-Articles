@@ -7,7 +7,7 @@ import ArticleFilter from './ArticleFilter';
 class ArticleList extends Component {
     render() {
         const hasArticles = this.props.articles.length > 0
-        const array = [0, 1, 3, 4, 5]
+        const array = [0, 1, 2, 3, 4]
 
         return (
             <div className="mt-12">
