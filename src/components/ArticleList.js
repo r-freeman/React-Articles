@@ -44,8 +44,11 @@ class ArticleList extends Component {
     onArticlesPerPageChange = (event) => {
         let articlesPerPage = event.target.value;
 
-        articlesPerPage = (articlesPerPage === "" || parseInt(articlesPerPage) === 0)
-            ? parseInt(event.target.dataset.value) : parseInt(articlesPerPage);
+        if ((articlesPerPage === "" || parseInt(articlesPerPage) === 0)) {
+            articlesPerPage = parseInt(event.target.dataset.value);
+        } else {
+            articlesPerPage = parseInt(articlesPerPage);
+        }
 
         this.setState({
             articlesPerPage
@@ -81,19 +84,22 @@ class ArticleList extends Component {
 
         // in this code we return each article that satisfies a true condition for the given expressions
         filteredArticles = this.props.articles
-            .filter(
-                article => (filteredCategory === null || article.category_id === filteredCategory)
-                    && (filteredAuthor === null || article.user.name.toLowerCase().includes(filteredAuthor))
-            );
+            .filter(article => (filteredCategory === null || article.category_id === filteredCategory)
+                && (filteredAuthor === null || article.user.name.toLowerCase().includes(filteredAuthor)));
+
 
         // we want to apply sorting and keep any filtering above
         sortedArticles = filteredArticles;
         if (sortOrder !== null) {
-            sortedArticles = _.orderBy(filteredArticles, ['category.title'], sortOrder);
+            sortedArticles = _.orderBy(sortedArticles, ['category.title'], sortOrder);
         }
 
         // after sorting and filtering we want to apply pagination to our articles
-        pagedArticles = sortedArticles.slice(0, articlesPerPage);
+        if (articlesPerPage !== -1) {
+            pagedArticles = sortedArticles.slice(0, articlesPerPage);
+        } else {
+            pagedArticles = sortedArticles;
+        }
 
         // evaluates to true if articles contains greater than zero items
         // this is used to conditionally render the articles or articles skeletons in the JSX below
