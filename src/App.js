@@ -11,12 +11,17 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 
 class App extends React.Component {
-    API_URL = 'http://localhost:8000/api/'
+    // instance variable
+    API_URL = 'http://localhost:8000/api/';
 
+    // pass props to constructor of App superclass (Component)
     constructor(props) {
         super(props);
 
         // const user = localStorage.getItem('user')
+
+        // when anything inside of state changes, the UI is re-rendered with most up-to-date version of state
+        // also, UI refresh can be triggered programmatically by calling this.forceUpdate()
         this.state = {
             user: {
                 "id": 1,
@@ -32,6 +37,7 @@ class App extends React.Component {
         }
     }
 
+    // componentDidMount is a lifecycle method.
     componentDidMount() {
         // fetch articles
         fetch(`${this.API_URL}articles`)
@@ -48,6 +54,16 @@ class App extends React.Component {
             }))
     }
 
+    // onLoginSuccess(loggedInUser, remember) {
+    // must be bound in constructor
+    // }
+
+    // onLoginSuccess = (loggedInUser, remember) => {
+    //     this refers an instance of the App class
+    // }
+
+    // the render method uses JSX syntax to output the UI as HTML
+    // JavaScript expressions can be used in JSX using curly braces
     render() {
         return (
             <div className="App">
@@ -55,26 +71,29 @@ class App extends React.Component {
                     <Nav user={this.state.user}/>
                 </header>
                 <Switch>
-                    <Route exact path='/'
-                           render={() => <Home
-                               articles={this.state.articles}
-                               categories={this.state.categories}/>
-                           }/>
-                    <Route exact path='/articles'
-                           render={() => <Articles
-                               articles={this.state.articles}
-                               categories={this.state.categories}/>
-                           }/>
-                    <Route exact path='/login'
-                           render={() => <Login
-                               user={this.state.user}/>}/>
-                    <Route exact path='/register'
-                           render={() => <Register
-                               user={this.state.user}/>}/>
+                    <Route exact path='/'>
+                        <Home
+                            articles={this.state.articles}
+                            categories={this.state.categories}/>
+                    </Route>
+                    <Route exact path='/articles'>
+                        <Articles
+                            articles={this.state.articles}
+                            categories={this.state.categories}/>
+                    </Route>
+                    <Route exact path='/login'>
+                        <Login
+                            user={this.state.user}/>
+                    </Route>
+                    <Route exact path='/register'>
+                        <Register
+                            user={this.state.user}/>
+                    </Route>
                 </Switch>
             </div>
         )
     }
 }
 
+// export the App class
 export default App;

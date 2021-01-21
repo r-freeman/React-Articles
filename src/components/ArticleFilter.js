@@ -51,10 +51,10 @@ class ArticleFilter extends Component {
                         <div className="absolute inset-0 bg-gray-700 bg-opacity-25"
                              aria-hidden="true"
                              onClick={this.toggleFilter}/>
-                        <section className="absolute inset-y-0 right-0 pl-10 max-w-full flex"
+                        <section className="absolute inset-y-0 right-0 max-w-full flex"
                                  aria-labelledby="slide-over-heading">
                             <div className="relative w-screen max-w-md">
-                                <div className="h-full flex flex-col py-6 bg-white shadow-xl overflow-y-scroll">
+                                <div className="h-full flex flex-col py-6 bg-white shadow-xl overflow-auto">
                                     <div className="px-4 sm:px-6">
                                         <div className="flex items-start justify-between">
                                             <h2 id="slide-over-heading" className="text-lg font-medium text-gray-900">
@@ -74,10 +74,60 @@ class ArticleFilter extends Component {
                                                 </button>
                                             </div>
                                         </div>
-                                        <div className="mt-6 relative flex-1 px-4 sm:px-6">
-                                            <div className="absolute inset-0 px-4 sm:px-6">
-
-                                            </div>
+                                        <div className="mt-6">
+                                            <form>
+                                                <div className="space-y-8">
+                                                    <div>
+                                                        <label className="block font-medium text-gray-700">
+                                                            Category
+                                                        </label>
+                                                        <ul className="mt-2 relative bg-white rounded-md -space-y-px">
+                                                            {this.props.categories.map((category, i) => {
+                                                                return (
+                                                                    <li key={category.id}>
+                                                                        <div
+                                                                            className={`${i === 0 ? 'rounded-tl-md rounded-tr-md'
+                                                                                : i === this.props.categories.length - 1 ? 'rounded-bl-md rounded-br-md' : ''} relative border p-4 flex flex-col md:pl-4 md:pr-6 md:grid md:grid-cols-3`}>
+                                                                            <label
+                                                                                className="flex items-center text-sm cursor-pointer">
+                                                                                <input name="categories"
+                                                                                       type="radio"
+                                                                                       className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 cursor-pointer border-gray-300"
+                                                                                       value={category.id}
+                                                                                       onChange={this.props.onCategoryChange}/>
+                                                                                <span
+                                                                                    className="ml-3 font-medium text-gray-900">{category.title}</span>
+                                                                            </label>
+                                                                        </div>
+                                                                    </li>
+                                                                )
+                                                            })}
+                                                        </ul>
+                                                    </div>
+                                                    <div>
+                                                        <label className="block font-medium text-gray-700">
+                                                            Author
+                                                        </label>
+                                                        <div className="mt-2">
+                                                            <input type="text" name="author" id="author"
+                                                                   className="focus:ring-indigo-500 focus:border-indigo-500 block w-full min-w-0 rounded-md sm:text-sm border-gray-300"
+                                                                   onChange={this.props.onAuthorChange}
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                    <div>
+                                                        <label className="block font-medium text-gray-700">
+                                                            Articles per page
+                                                        </label>
+                                                        <div className="mt-2">
+                                                            <input type="text" name="articles_per_page"
+                                                                   id="articles_per_page"
+                                                                   className="focus:ring-indigo-500 focus:border-indigo-500 block w-full min-w-0 rounded-md sm:text-sm border-gray-300"
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
