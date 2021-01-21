@@ -121,9 +121,11 @@ class ArticleFilter extends Component {
                                                             Articles per page
                                                         </label>
                                                         <div className="mt-2">
-                                                            <input type="text" name="article_number"
-                                                                   id="article_number"
+                                                            <input type="text" name="articles_per_page"
+                                                                   id="articles_per_page"
                                                                    className="focus:ring-indigo-500 focus:border-indigo-500 block w-full min-w-0 rounded-md sm:text-sm border-gray-300"
+                                                                   data-value="-1"
+                                                                   onChange={this.props.onArticlesPerPageChange}
                                                             />
                                                         </div>
                                                     </div>

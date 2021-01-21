@@ -12,7 +12,8 @@ class ArticleList extends Component {
         this.state = {
             filteredCategory: null,
             filteredAuthor: null,
-            sortOrder: null
+            sortOrder: null,
+            articlesPerPage: -1
         }
 
         this.onCategoryChange = this.onCategoryChange.bind(this);
@@ -40,6 +41,17 @@ class ArticleList extends Component {
         })
     }
 
+    onArticlesPerPageChange = (event) => {
+        let articlesPerPage = event.target.value;
+
+        articlesPerPage = (articlesPerPage === "" || parseInt(articlesPerPage) === 0)
+            ? parseInt(event.target.dataset.value) : parseInt(articlesPerPage);
+
+        this.setState({
+            articlesPerPage
+        })
+    }
+
     // Again, onSortChange has the correct 'this' context using an arrow function
     onSortOrderChange = () => {
         let sortOrder = this.state.sortOrder;
@@ -61,23 +73,31 @@ class ArticleList extends Component {
         const filteredCategory = this.state.filteredCategory;
         const filteredAuthor = this.state.filteredAuthor;
         const sortOrder = this.state.sortOrder;
+        const articlesPerPage = this.state.articlesPerPage;
+
+        let filteredArticles,
+            sortedArticles,
+            pagedArticles;
 
         // in this code we return each article that satisfies a true condition for the given expressions
-        const filteredArticles = this.props.articles
+        filteredArticles = this.props.articles
             .filter(
                 article => (filteredCategory === null || article.category_id === filteredCategory)
                     && (filteredAuthor === null || article.user.name.toLowerCase().includes(filteredAuthor))
             );
 
         // we want to apply sorting and keep any filtering above
-        let sortedArticles = filteredArticles;
+        sortedArticles = filteredArticles;
         if (sortOrder !== null) {
             sortedArticles = _.orderBy(filteredArticles, ['category.title'], sortOrder);
         }
 
+        // after sorting and filtering we want to apply pagination to our articles
+        pagedArticles = sortedArticles.slice(0, articlesPerPage);
+
         // evaluates to true if articles contains greater than zero items
         // this is used to conditionally render the articles or articles skeletons in the JSX below
-        const hasArticles = sortedArticles.length > 0;
+        const hasArticles = pagedArticles.length > 0;
 
         // an array of five items, used to render five skeleton articles while fetching articles
         const array = [0, 1, 2, 3, 4]
@@ -90,11 +110,12 @@ class ArticleList extends Component {
                     sortOrder={sortOrder}
                     onCategoryChange={this.onCategoryChange}
                     onAuthorChange={this.onAuthorChange}
+                    onArticlesPerPageChange={this.onArticlesPerPageChange}
                     onSortOrderChange={this.onSortOrderChange}
                 />
                 <div className="pt-8 grid gap-16 lg:grid-cols-3 lg:gap-x-5 lg:gap-y-12">
                     {hasArticles &&
-                    sortedArticles.map(article => {
+                    pagedArticles.map(article => {
                         return (
                             <ArticleItem
                                 article={article}
@@ -114,10 +135,6 @@ class ArticleList extends Component {
             </div>
         )
     }
-}
-
-ArticleList.defaultProps = {
-    limit: -1
 }
 
 export default ArticleList;
