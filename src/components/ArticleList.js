@@ -72,6 +72,22 @@ class ArticleList extends Component {
         })
     }
 
+    onResetFilter = (event) => {
+        // prevent default form submission behaviour
+        event.preventDefault();
+
+        // reset filter variables back to defaults
+        let filteredCategory, filteredAuthor, articlesPerPage;
+        filteredCategory = filteredAuthor = null;
+        articlesPerPage = -1
+
+        this.setState({
+            filteredCategory,
+            filteredAuthor,
+            articlesPerPage
+        })
+    }
+
     render() {
         const filteredCategory = this.state.filteredCategory;
         const filteredAuthor = this.state.filteredAuthor;
@@ -113,11 +129,13 @@ class ArticleList extends Component {
                 <ArticleFilter
                     categories={this.props.categories}
                     articles={this.props.articles}
+                    filteredCategory={this.state.filteredCategory}
                     sortOrder={sortOrder}
                     onCategoryChange={this.onCategoryChange}
                     onAuthorChange={this.onAuthorChange}
                     onArticlesPerPageChange={this.onArticlesPerPageChange}
                     onSortOrderChange={this.onSortOrderChange}
+                    onResetFilter={this.onResetFilter}
                 />
                 <div className="pt-8 grid gap-16 lg:grid-cols-3 lg:gap-x-5 lg:gap-y-12">
                     {hasArticles &&

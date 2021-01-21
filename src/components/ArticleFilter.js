@@ -94,6 +94,7 @@ class ArticleFilter extends Component {
                                                                                 <input name="categories"
                                                                                        type="radio"
                                                                                        className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 cursor-pointer border-gray-300"
+                                                                                       checked={(category.id === this.props.filteredCategory)}
                                                                                        value={category.id}
                                                                                        onChange={this.props.onCategoryChange}/>
                                                                                 <span
@@ -128,6 +129,19 @@ class ArticleFilter extends Component {
                                                                    onChange={this.props.onArticlesPerPageChange}
                                                             />
                                                         </div>
+                                                    </div>
+                                                    <div>
+                                                        <button
+                                                            className="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-500 hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-indigo-500"
+                                                            onClick={this.props.onResetFilter}>
+                                                            <svg className="-ml-0.5 mr-2 w-5 h-5" fill="none"
+                                                                 stroke="currentColor"
+                                                                 viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                                                <path strokeLinecap="round" strokeLinejoin="round"
+                                                                      strokeWidth="2" d="M6 18L18 6M6 6l12 12"/>
+                                                            </svg>
+                                                            Reset filter
+                                                        </button>
                                                     </div>
                                                 </div>
                                             </form>
