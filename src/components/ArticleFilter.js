@@ -88,7 +88,8 @@ class ArticleFilter extends Component {
                                                                     <li key={category.id}>
                                                                         <div
                                                                             className={`${i === 0 ? 'rounded-tl-md rounded-tr-md'
-                                                                                : i === this.props.categories.length - 1 ? 'rounded-bl-md rounded-br-md' : ''} relative border p-4 flex flex-col md:pl-4 md:pr-6 md:grid md:grid-cols-3`}>
+                                                                                : i === this.props.categories.length - 1 ? 'rounded-bl-md rounded-br-md' : ''} 
+                                                                                ${category.id === this.props.filteredCategory ? 'bg-indigo-50 border-indigo-200 z-10' : 'border-gray-200'} relative border p-4 flex flex-col md:pl-4 md:pr-6 md:grid md:grid-cols-3`}>
                                                                             <label
                                                                                 className="flex items-center text-sm cursor-pointer">
                                                                                 <input name="categories"
