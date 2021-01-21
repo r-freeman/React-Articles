@@ -43,6 +43,7 @@ class ArticleFilter extends Component {
 
     render() {
         const filterOpen = this.state.isFilterOpen;
+        const sortOrder = this.props.sortOrder;
 
         return (
             <div>
@@ -120,8 +121,8 @@ class ArticleFilter extends Component {
                                                             Articles per page
                                                         </label>
                                                         <div className="mt-2">
-                                                            <input type="text" name="articles_per_page"
-                                                                   id="articles_per_page"
+                                                            <input type="text" name="article_number"
+                                                                   id="article_number"
                                                                    className="focus:ring-indigo-500 focus:border-indigo-500 block w-full min-w-0 rounded-md sm:text-sm border-gray-300"
                                                             />
                                                         </div>
@@ -135,16 +136,37 @@ class ArticleFilter extends Component {
                         </section>
                     </div>
                 </div>
-                <button
-                    className="inline-flex items-center px-3 py-2 shadow-sm text-base font-medium rounded-md text-white bg-indigo-500 hover:bg-indigo-600 focus:outline-none"
-                    onClick={this.toggleFilter}>
-                    <svg className="-ml-0.5 mr-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                         xmlns="http://www.w3.org/2000/svg">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
-                              d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"/>
-                    </svg>
-                    Filter articles
-                </button>
+                <div className="space-x-4">
+                    <button
+                        className="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-500 hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-indigo-500"
+                        onClick={this.toggleFilter}>
+                        <svg className="-ml-0.5 mr-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                             xmlns="http://www.w3.org/2000/svg">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
+                                  d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"/>
+                        </svg>
+                        Filter articles
+                    </button>
+                    <button
+                        className="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-500 hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-indigo-500"
+                        onClick={this.props.onSortOrderChange}>
+                        {sortOrder === 'asc' &&
+                        <svg className="-ml-0.5 mr-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                             xmlns="http://www.w3.org/2000/svg">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
+                                  d="M5 15l7-7 7 7"/>
+                        </svg>
+                        }
+                        {(sortOrder === 'desc' || sortOrder === null) &&
+                        <svg className="-ml-0.5 mr-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                             xmlns="http://www.w3.org/2000/svg">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
+                                  d="M19 9l-7 7-7-7"/>
+                        </svg>
+                        }
+                        Sort by category
+                    </button>
+                </div>
             </div>
         )
     }

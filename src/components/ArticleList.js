@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import _ from 'lodash';
 
 import ArticleItem from './ArticleItem';
 import ArticleSkeleton from './ArticleSkeleton';
@@ -10,7 +11,8 @@ class ArticleList extends Component {
 
         this.state = {
             filteredCategory: null,
-            filteredAuthor: null
+            filteredAuthor: null,
+            sortOrder: null
         }
 
         this.onCategoryChange = this.onCategoryChange.bind(this);
@@ -38,9 +40,27 @@ class ArticleList extends Component {
         })
     }
 
+    // Again, onSortChange has the correct 'this' context using an arrow function
+    onSortOrderChange = () => {
+        let sortOrder = this.state.sortOrder;
+
+        if (sortOrder === null) {
+            sortOrder = 'asc';
+        } else if (sortOrder === 'asc') {
+            sortOrder = 'desc';
+        } else if (sortOrder === 'desc') {
+            sortOrder = 'asc';
+        }
+
+        this.setState({
+            sortOrder
+        })
+    }
+
     render() {
         const filteredCategory = this.state.filteredCategory;
         const filteredAuthor = this.state.filteredAuthor;
+        const sortOrder = this.state.sortOrder;
 
         // in this code we return each article that satisfies a true condition for the given expressions
         const filteredArticles = this.props.articles
@@ -49,9 +69,15 @@ class ArticleList extends Component {
                     && (filteredAuthor === null || article.user.name.toLowerCase().includes(filteredAuthor))
             );
 
+        // we want to apply sorting and keep any filtering above
+        let sortedArticles = filteredArticles;
+        if (sortOrder !== null) {
+            sortedArticles = _.orderBy(filteredArticles, ['category.title'], sortOrder);
+        }
+
         // evaluates to true if articles contains greater than zero items
         // this is used to conditionally render the articles or articles skeletons in the JSX below
-        const hasArticles = filteredArticles.length > 0;
+        const hasArticles = sortedArticles.length > 0;
 
         // an array of five items, used to render five skeleton articles while fetching articles
         const array = [0, 1, 2, 3, 4]
@@ -61,12 +87,14 @@ class ArticleList extends Component {
                 <ArticleFilter
                     categories={this.props.categories}
                     articles={this.props.articles}
+                    sortOrder={sortOrder}
                     onCategoryChange={this.onCategoryChange}
                     onAuthorChange={this.onAuthorChange}
+                    onSortOrderChange={this.onSortOrderChange}
                 />
                 <div className="pt-8 grid gap-16 lg:grid-cols-3 lg:gap-x-5 lg:gap-y-12">
                     {hasArticles &&
-                    filteredArticles.map(article => {
+                    sortedArticles.map(article => {
                         return (
                             <ArticleItem
                                 article={article}
