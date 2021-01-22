@@ -52,7 +52,7 @@ class ArticleFilter extends Component {
                         <div className="absolute inset-0 bg-gray-700 bg-opacity-25"
                              aria-hidden="true"
                              onClick={this.toggleFilter}/>
-                        <section className="absolute inset-y-0 right-0 max-w-full flex"
+                        <section className="absolute inset-y-0 right-0 pl-10 max-w-full flex"
                                  aria-labelledby="slide-over-heading">
                             <div className="relative w-screen max-w-md">
                                 <div className="h-full flex flex-col py-6 bg-white shadow-xl overflow-auto">
