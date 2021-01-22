@@ -18,8 +18,7 @@ class Home extends React.Component {
                     </div>
                     <ArticleList
                         articles={this.props.articles}
-                        categories={this.props.categories}
-                        limit="5"/>
+                        categories={this.props.categories}/>
                 </div>
             </div>
         )

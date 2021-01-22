@@ -76,7 +76,7 @@ class ArticleFilter extends Component {
                                             </div>
                                         </div>
                                         <div className="mt-6">
-                                            <form>
+                                            <form name="articleFilter">
                                                 <div className="space-y-8">
                                                     <div>
                                                         <label className="block font-medium text-gray-700">

@@ -7,6 +7,7 @@ import Nav from 'components/Nav';
 // pages
 import Home from './pages/Home';
 import Articles from './pages/Articles';
+import Article from './pages/Article';
 import Login from './pages/Login';
 import Register from './pages/Register';
 
@@ -81,6 +82,9 @@ class App extends React.Component {
                             articles={this.state.articles}
                             categories={this.state.categories}/>
                     </Route>
+                    <Route exact path='/articles/:id'
+                           render={(props) =>
+                               (<Article {...props} articles={this.state.articles}/>)}/>
                     <Route exact path='/login'>
                         <Login
                             user={this.state.user}/>
