@@ -49,7 +49,6 @@ class Nav extends Component {
                                 </NavLink>
                                 {isLoggedIn &&
                                 <NavLink
-                                    exact
                                     to="/articles"
                                     activeClassName="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium"
                                     className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
@@ -132,7 +131,7 @@ class Nav extends Component {
                             </NavLink>
                             {isLoggedIn &&
                             <NavLink
-                                sexact
+                                exact
                                 to="/articles"
                                 activeClassName="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium"
                                 className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">
