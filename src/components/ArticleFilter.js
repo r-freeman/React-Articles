@@ -153,16 +153,18 @@ class ArticleFilter extends Component {
                         </section>
                     </div>
                 </div>
-                <div className="space-x-4">
+                <div className="flex justify-start space-x-4">
                     <button
                         className="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-500 hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-indigo-500"
                         onClick={this.toggleFilter}>
-                        <svg className="-ml-0.5 mr-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                        <svg className="-ml-0.5 sm:mr-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                              xmlns="http://www.w3.org/2000/svg">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
                                   d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"/>
                         </svg>
-                        Filter articles
+                        <span className="hidden sm:block">
+                            Filter articles
+                        </span>
                     </button>
                     <button
                         className="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-500 hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-indigo-500"
