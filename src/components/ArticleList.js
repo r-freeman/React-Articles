@@ -76,6 +76,9 @@ class ArticleList extends Component {
         // prevent default form submission behaviour
         event.preventDefault();
 
+        // reset the form, clearing text inputs
+        event.target.form.reset();
+
         // reset filter variables back to defaults
         let filteredCategory, filteredAuthor, articlesPerPage;
         filteredCategory = filteredAuthor = null;
