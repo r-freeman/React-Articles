@@ -58,6 +58,18 @@ class Nav extends Component {
                                     className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
                                     Articles
                                 </NavLink>
+                                {isLoggedIn &&
+                                <button type="button"
+                                        className="relative inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-500 hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-indigo-500">
+                                    <svg className="-ml-1 mr-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg"
+                                         viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                        <path fillRule="evenodd"
+                                              d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
+                                              clipRule="evenodd"/>
+                                    </svg>
+                                    <span>New Article</span>
+                                </button>
+                                }
                             </div>
                         </div>
                         <div className="hidden sm:ml-6 sm:block">
@@ -134,13 +146,19 @@ class Nav extends Component {
                                 Home
                             </NavLink>
                             {isLoggedIn &&
-                            <NavLink
-                                exact
-                                to="/articles"
-                                activeClassName="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium"
-                                className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">
-                                Articles
-                            </NavLink>
+                            <div>
+                                <NavLink
+                                    exact
+                                    to="/articles"
+                                    activeClassName="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium"
+                                    className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">
+                                    Articles
+                                </NavLink>
+                                <button type="button"
+                                        className="mt-1 w-full text-left px-3 py-2 shadow-sm text-base font-medium rounded-md text-white bg-indigo-500 hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-indigo-500">
+                                    <span>New Article</span>
+                                </button>
+                            </div>
                             }
                             {!isLoggedIn &&
                             <div className="space-y-1">
