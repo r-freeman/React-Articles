@@ -2,18 +2,20 @@ import React from 'react';
 import {withRouter} from 'react-router-dom';
 
 class Login extends React.Component {
+    DEFAULTS = {
+        email: null,
+        password: null,
+        remember_me: true,
+        emailError: '',
+        passwordError: '',
+        isAuthenticating: false,
+        authenticationError: ''
+    }
+
     constructor(props) {
         super(props);
 
-        this.state = {
-            email: null,
-            password: null,
-            remember_me: true,
-            emailError: '',
-            passwordError: '',
-            isAuthenticating: false,
-            authenticationError: ''
-        }
+        this.state = this.DEFAULTS;
 
         this.validateEmail = this.validateEmail.bind(this);
         this.validatePassword = this.validatePassword.bind(this);
@@ -113,15 +115,7 @@ class Login extends React.Component {
 
     // on successful login we want to reset the login form and state
     resetLoginForm() {
-        this.setState({
-            email: null,
-            password: null,
-            remember_me: true,
-            emailError: '',
-            passwordError: '',
-            isAuthenticating: false
-        })
-
+        this.setState(this.DEFAULTS);
         this.loginForm.reset();
     }
 
