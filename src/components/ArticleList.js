@@ -79,15 +79,11 @@ class ArticleList extends Component {
         // reset the form, clearing text inputs
         event.target.form.reset();
 
-        // reset filter variables back to defaults
-        let filteredCategory, filteredAuthor, articlesPerPage;
-        filteredCategory = filteredAuthor = null;
-        articlesPerPage = -1
-
+        // restore filter states to defaults
         this.setState({
-            filteredCategory,
-            filteredAuthor,
-            articlesPerPage
+            filteredCategory: null,
+            filteredAuthor: null,
+            articlesPerPage: -1
         })
     }
 
