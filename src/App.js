@@ -175,34 +175,37 @@ class App extends React.Component {
     // the render method uses JSX syntax to output the UI as HTML
     // JavaScript expressions can be used in JSX using curly braces
     render() {
+        const {user, articles, categories} = this.state;
+
         return (
             <div className="App">
                 <header>
-                    <Nav user={this.state.user}
+                    <Nav user={user}
                          logout={this.logout}/>
                 </header>
                 <Switch>
                     <Route exact path='/'>
                         <Home
-                            articles={this.state.articles}
-                            categories={this.state.categories}/>
+                            articles={articles}
+                            categories={categories}
+                            user={user}/>
                     </Route>
                     <Route exact path='/articles'>
                         <Articles
-                            articles={this.state.articles}
-                            categories={this.state.categories}/>
+                            articles={articles}
+                            categories={categories}/>
                     </Route>
                     <Route exact path='/articles/:id'
                            render={(props) =>
-                               (<Article {...props} articles={this.state.articles}/>)}/>
+                               (<Article {...props} articles={articles}/>)}/>
                     <Route exact path='/login'>
                         <Login
-                            user={this.state.user}
+                            user={user}
                             login={this.login}/>
                     </Route>
                     <Route exact path='/register'>
                         <Register
-                            user={this.state.user}
+                            user={user}
                             register={this.register}/>
                     </Route>
                 </Switch>
