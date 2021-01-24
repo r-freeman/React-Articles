@@ -10,12 +10,17 @@ class Nav extends Component {
         }
 
         this.toggleMenu = this.toggleMenu.bind(this);
+        this.onLogout = this.onLogout.bind(this);
     }
 
     toggleMenu() {
         this.setState(prevState => ({
             isMenuOpen: !prevState.isMenuOpen
         }));
+    }
+
+    onLogout() {
+        this.props.logout();
     }
 
     render() {
@@ -47,14 +52,12 @@ class Nav extends Component {
                                     className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
                                     Home
                                 </NavLink>
-                                {isLoggedIn &&
                                 <NavLink
                                     to="/articles"
                                     activeClassName="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium"
                                     className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
                                     Articles
                                 </NavLink>
-                                }
                             </div>
                         </div>
                         <div className="hidden sm:ml-6 sm:block">
@@ -71,7 +74,8 @@ class Nav extends Component {
                                 </button>
                                 }
                                 {isLoggedIn &&
-                                <Dropdown/>
+                                <Dropdown
+                                    onLogout={this.onLogout}/>
                                 }
                                 {!isLoggedIn &&
                                 <div className="flex items-center space-x-4">
@@ -148,7 +152,7 @@ class Nav extends Component {
                                     Log in
                                 </NavLink>
                                 <button type="button"
-                                        className="px-3 py-2 shadow-sm text-base font-medium rounded-md text-white bg-indigo-500 hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-indigo-500">
+                                        className="w-full text-left px-3 py-2 shadow-sm text-base font-medium rounded-md text-white bg-indigo-500 hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-indigo-500">
                                     <NavLink
                                         exact
                                         to="/register">
@@ -187,8 +191,9 @@ class Nav extends Component {
                             <div className="mt-3 px-2 space-y-1">
                                 <NavLink
                                     exact
-                                    to="/logout"
-                                    className="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700">Log
+                                    to="/"
+                                    className="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700"
+                                    onClick={this.onLogout}>Log
                                     out</NavLink>
                             </div>
                         </div>
@@ -197,7 +202,7 @@ class Nav extends Component {
                     }
                 </div>
             </nav>
-        )
+        );
     }
 }
 

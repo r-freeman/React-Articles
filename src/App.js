@@ -19,35 +19,91 @@ class App extends React.Component {
     constructor(props) {
         super(props);
 
-        // const user = localStorage.getItem('user')
+        const user = localStorage.getItem('user')
 
         // when anything inside of state changes, the UI is re-rendered with most up-to-date version of state
         // also, UI refresh can be triggered programmatically by calling this.forceUpdate()
         this.state = {
-            user: {
-                "id": 1,
-                "name": "administrator",
-                "email": "admin@test.com",
-                "email_verified_at": null,
-                "created_at": "2021-01-05T13:43:16.000000Z",
-                "updated_at": "2021-01-16T21:50:06.000000Z",
-                "api_token": "CBpr0miB67ZLcsIJ8MwxwNfdRONSAiTMUYy7NY58yrnBayL2k7tAatuusvVD"
-            },
+            user,
             articles: [],
-            categories: []
+            categories: [],
+            comments: []
         }
+
+        this.login = this.login.bind(this);
+        this.logout = this.logout.bind(this);
+        this.register = this.register.bind(this);
+        this.fetchArticles = this.fetchArticles.bind(this);
+        this.fetchCategories = this.fetchCategories.bind(this);
     }
 
-    // componentDidMount is a lifecycle method.
     componentDidMount() {
-        // fetch articles
+        this.fetchArticles();
+        this.fetchCategories();
+
+        // const {user} = this.state;
+        //
+        // if (user !== null) {
+        //     var myHeaders = new Headers();
+        //     myHeaders.append("Accept", "application/json");
+        //     myHeaders.append("Authorization", `Bearer ${user.api_token}`);
+        //
+        //     var requestOptions = {
+        //         method: 'GET',
+        //         headers: myHeaders
+        //     };
+        //
+        //     fetch('http://localhost:8000/api/comments/1', requestOptions)
+        //         .then(response => response.text())
+        //         .then(result => console.log(result))
+        //         .catch(error => console.log('error', error));
+        //
+        //     // try {
+        //     //     await this.fetchComments();
+        //     // } catch (e) {
+        //     //     this.logout();
+        //     // }
+        // }
+    }
+
+    // fetchComments() {
+    //     return new Promise((resolve, reject) => {
+    //         let {user} = this.state;
+    //
+    //         fetch(`${this.API_URL}comments`, {
+    //             method: 'GET',
+    //             headers: {
+    //                 'Accept': 'application/json',
+    //                 'Content-Type': 'application/json',
+    //                 'Authorization': `Bearer ${user.api_token}`
+    //             }
+    //         }).then((response) => {
+    //             response.json()
+    //                 .then(res => {
+    //                     if (response.status === 200) {
+    //                         let comments = res.data;
+    //
+    //                         this.setState({
+    //                             comments
+    //                         })
+    //                         resolve(true);
+    //                     } else {
+    //                         reject(false);
+    //                     }
+    //                 })
+    //         }).catch(err => reject(err));
+    //     })
+    // }
+
+    fetchArticles() {
         fetch(`${this.API_URL}articles`)
             .then(res => res.json())
             .then(data => this.setState({
                 articles: data
             }))
+    }
 
-        // fetch categories
+    fetchCategories() {
         fetch(`${this.API_URL}categories`)
             .then(res => res.json())
             .then(data => this.setState({
@@ -55,13 +111,66 @@ class App extends React.Component {
             }))
     }
 
-    // onLoginSuccess(loggedInUser, remember) {
-    // must be bound in constructor
-    // }
+    login(email, password, remember_me) {
+        return new Promise((resolve, reject) => {
+            fetch(`${this.API_URL}login`, {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({"email": email, "password": password})
+            }).then((response) => {
+                response.json()
+                    .then(res => {
+                        if (response.status === 200) {
+                            let user = res.data;
 
-    // onLoginSuccess = (loggedInUser, remember) => {
-    //     this refers an instance of the App class
-    // }
+                            this.setState({
+                                user
+                            })
+
+                            if (remember_me === true) {
+                                localStorage.setItem('user', JSON.stringify(user));
+                            }
+                            resolve(true);
+                        } else if (response.status === 422) {
+                            reject(false);
+                        }
+                    })
+            }).catch(err => {
+                reject(err);
+            });
+        });
+    }
+
+    logout() {
+        const {user} = this.state;
+
+        fetch(`${this.API_URL}logout`, {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${user.api_token}`
+            }
+        }).then((response) => {
+            response.json()
+                .then(() => {
+                    if (response.status === 200 || response.status === 401) {
+                        localStorage.removeItem('user');
+
+                        this.setState({
+                            user: null
+                        })
+                    }
+                })
+        }).catch(err => console.log(err));
+    }
+
+    register() {
+
+    }
 
     // the render method uses JSX syntax to output the UI as HTML
     // JavaScript expressions can be used in JSX using curly braces
@@ -69,7 +178,8 @@ class App extends React.Component {
         return (
             <div className="App">
                 <header>
-                    <Nav user={this.state.user}/>
+                    <Nav user={this.state.user}
+                         logout={this.logout}/>
                 </header>
                 <Switch>
                     <Route exact path='/'>
@@ -87,11 +197,13 @@ class App extends React.Component {
                                (<Article {...props} articles={this.state.articles}/>)}/>
                     <Route exact path='/login'>
                         <Login
-                            user={this.state.user}/>
+                            user={this.state.user}
+                            login={this.login}/>
                     </Route>
                     <Route exact path='/register'>
                         <Register
-                            user={this.state.user}/>
+                            user={this.state.user}
+                            register={this.register}/>
                     </Route>
                 </Switch>
             </div>

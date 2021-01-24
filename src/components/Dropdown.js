@@ -2,7 +2,7 @@ import {Transition} from '@headlessui/react';
 import React, {useState} from 'react';
 import {NavLink} from 'react-router-dom';
 
-function Dropdown() {
+function Dropdown(props) {
     const [isOpen, setIsOpen] = useState(false)
 
     return (
@@ -29,12 +29,13 @@ function Dropdown() {
                 leaveFrom={"transform opacity-100 scale-100"}
                 leaveTo={"transform opacity-0 scale-95"}
             >
-                <NavLink to="/logout"
+                <NavLink to="/"
                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                         onClick={props.onLogout}
                          role="menuitem">Log out</NavLink>
             </Transition>
         </div>
-    )
+    );
 }
 
 export default Dropdown;
