@@ -12,8 +12,37 @@ class Article extends React.Component {
 
     componentDidMount() {
         const articleId = parseInt(this.props.match.params.id);
-        const articles = this.props.articles;
-        const article = articles.find(article => article.id === articleId);
+        const articles = this.props.articles.length > 0 ? this.props.articles : null;
+
+        let article;
+        if (articles !== null) {
+            article = articles.find(article => article.id === articleId);
+        } else {
+            article = {
+                "id": 1,
+                "title": "Ipsa sed molestias explicabo corrupti.",
+                "body": "Occaecati qui maxime ab in deserunt nostrum. Sunt sapiente quos eum dolorem eligendi. Qui quia eaque veniam harum harum sit odit.",
+                "created_at": "2021-01-05T13:43:16.000000Z",
+                "updated_at": "2021-01-05T13:43:16.000000Z",
+                "category_id": 8,
+                "user_id": 9,
+                "category": {
+                    "id": 8,
+                    "title": "Hockey",
+                    "created_at": "2021-01-05T13:43:16.000000Z",
+                    "updated_at": "2021-01-05T13:43:16.000000Z"
+                },
+                "user": {
+                    "id": 9,
+                    "name": "Cody Gutkowski",
+                    "email": "hegmann.maci@yahoo.com",
+                    "email_verified_at": null,
+                    "created_at": "2021-01-05T13:43:16.000000Z",
+                    "updated_at": "2021-01-05T13:43:16.000000Z",
+                    "api_token": null
+                }
+            }
+        }
 
         this.setState({
             article
