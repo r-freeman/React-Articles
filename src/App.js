@@ -19,7 +19,7 @@ class App extends React.Component {
     constructor(props) {
         super(props);
 
-        const user = localStorage.getItem('user')
+        const user = JSON.parse(localStorage.getItem('user'));
 
         // when anything inside of state changes, the UI is re-rendered with most up-to-date version of state
         // also, UI refresh can be triggered programmatically by calling this.forceUpdate()

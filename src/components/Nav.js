@@ -24,7 +24,8 @@ class Nav extends Component {
     }
 
     render() {
-        const isLoggedIn = this.props.user !== null
+        const {user} = this.props;
+        const isLoggedIn = user !== null;
         const isMenuOpen = this.state.isMenuOpen;
 
         return (
