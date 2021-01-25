@@ -11,11 +11,11 @@ class ArticleSkeleton extends Component {
                     </div>
                 </div>
                 <div className="block mt-4">
-                    <div className="w-2/3 bg-gray-200 h-5 rounded-full">
+                    <div className="w-full lg:w-5/6 bg-gray-200 h-5 rounded-full">
                     </div>
-                    <div className="mt-3 w-full bg-gray-200 h-5 rounded-full">
+                    <div className="mt-3 w-full lg:w-5/6 bg-gray-200 h-5 rounded-full">
                     </div>
-                    <div className="mt-3 w-full bg-gray-200 h-5 rounded-full">
+                    <div className="mt-3 w-full lg:w-5/6 bg-gray-200 h-5 rounded-full">
                     </div>
                 </div>
                 <div className="mt-6 flex items-start">
