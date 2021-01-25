@@ -144,6 +144,37 @@ class App extends React.Component {
         });
     }
 
+    register(name, email, password) {
+        return new Promise((resolve, reject) => {
+            fetch(`${this.API_URL}register`, {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({"name": name, "email": email, "password": password})
+            }).then((response) => {
+                response.json()
+                    .then(res => {
+                        if (response.status === 201) {
+                            let user = res.data;
+
+                            this.setState({
+                                user
+                            })
+
+                            localStorage.setItem('user', JSON.stringify(user));
+                            resolve(true);
+                        } else if (response.status === 422) {
+                            reject(false);
+                        }
+                    })
+            }).catch(err => {
+                reject(err);
+            })
+        })
+    }
+
     logout() {
         const {user} = this.state;
 
@@ -166,10 +197,6 @@ class App extends React.Component {
                     }
                 })
         }).catch(err => console.log(err));
-    }
-
-    register() {
-
     }
 
     // the render method uses JSX syntax to output the UI as HTML
