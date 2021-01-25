@@ -6,7 +6,7 @@ function Dropdown(props) {
     const [isOpen, setIsOpen] = useState(false)
 
     return (
-        <div className="ml-3 relative">
+        <div className="ml-3 relative z-10">
             <button
                 className="bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
                 id="user-menu" aria-haspopup="true"
