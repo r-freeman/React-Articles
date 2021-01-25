@@ -74,7 +74,7 @@ class Login extends React.Component {
         if (target.type === 'email') {
             this.validateEmail();
         } else if (target.type === 'password') {
-            this.validatePassword(target);
+            this.validatePassword();
         } else if (name === 'remember_me') {
             this.setState({
                 [name]: value
@@ -113,7 +113,7 @@ class Login extends React.Component {
         }
     }
 
-    // on successful login we want to reset the login form and state
+    // reset login form and state
     resetLoginForm() {
         this.setState(this.DEFAULTS);
         this.loginForm.reset();
