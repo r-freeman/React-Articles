@@ -35,65 +35,14 @@ class App extends React.Component {
         this.register = this.register.bind(this);
         this.fetchArticles = this.fetchArticles.bind(this);
         this.fetchCategories = this.fetchCategories.bind(this);
+        this.fetchComments = this.fetchComments.bind(this);
     }
 
     componentDidMount() {
         this.fetchArticles();
         this.fetchCategories();
-
-        // const {user} = this.state;
-        //
-        // if (user !== null) {
-        //     var myHeaders = new Headers();
-        //     myHeaders.append("Accept", "application/json");
-        //     myHeaders.append("Authorization", `Bearer ${user.api_token}`);
-        //
-        //     var requestOptions = {
-        //         method: 'GET',
-        //         headers: myHeaders
-        //     };
-        //
-        //     fetch('http://localhost:8000/api/comments/1', requestOptions)
-        //         .then(response => response.text())
-        //         .then(result => console.log(result))
-        //         .catch(error => console.log('error', error));
-        //
-        //     // try {
-        //     //     await this.fetchComments();
-        //     // } catch (e) {
-        //     //     this.logout();
-        //     // }
-        // }
+        this.fetchComments();
     }
-
-    // fetchComments() {
-    //     return new Promise((resolve, reject) => {
-    //         let {user} = this.state;
-    //
-    //         fetch(`${this.API_URL}comments`, {
-    //             method: 'GET',
-    //             headers: {
-    //                 'Accept': 'application/json',
-    //                 'Content-Type': 'application/json',
-    //                 'Authorization': `Bearer ${user.api_token}`
-    //             }
-    //         }).then((response) => {
-    //             response.json()
-    //                 .then(res => {
-    //                     if (response.status === 200) {
-    //                         let comments = res.data;
-    //
-    //                         this.setState({
-    //                             comments
-    //                         })
-    //                         resolve(true);
-    //                     } else {
-    //                         reject(false);
-    //                     }
-    //                 })
-    //         }).catch(err => reject(err));
-    //     })
-    // }
 
     fetchArticles() {
         fetch(`${this.API_URL}articles`)
@@ -109,6 +58,24 @@ class App extends React.Component {
             .then(data => this.setState({
                 categories: data
             }))
+    }
+
+    fetchComments() {
+        const {user} = this.state;
+
+        if (user !== null) {
+            fetch(`${this.API_URL}comments`, {
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${user.api_token}`
+                }
+            })
+                .then(res => res.json())
+                .then(data => this.setState({
+                    comments: data
+                })).catch(err => console.log(err));
+        }
     }
 
     login(email, password, remember_me) {
@@ -202,7 +169,7 @@ class App extends React.Component {
     // the render method uses JSX syntax to output the UI as HTML
     // JavaScript expressions can be used in JSX using curly braces
     render() {
-        const {user, articles, categories} = this.state;
+        const {user, articles, categories, comments} = this.state;
 
         return (
             <div className="App">
@@ -224,7 +191,9 @@ class App extends React.Component {
                     </Route>
                     <Route exact path='/articles/:id'
                            render={(props) =>
-                               (<Article {...props} articles={articles}/>)}/>
+                               (<Article {...props}
+                                         articles={articles}
+                                         comments={comments}/>)}/>
                     <Route exact path='/login'>
                         <Login
                             user={user}
