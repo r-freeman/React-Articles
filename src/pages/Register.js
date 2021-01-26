@@ -155,6 +155,7 @@ class Register extends React.Component {
                     this.resetRegisterForm();
                     // send back to home on successful registration
                     this.props.history.push('/');
+                    this.props.history.go();
                 }
             } catch (e) {
                 this.setState({

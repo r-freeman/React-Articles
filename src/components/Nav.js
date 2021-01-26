@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import {NavLink} from 'react-router-dom';
 import Dropdown from './Dropdown';
 
+import {withRouter} from 'react-router-dom';
+
 class Nav extends Component {
     constructor(props) {
         super(props);
@@ -19,8 +21,17 @@ class Nav extends Component {
         }));
     }
 
-    onLogout() {
-        this.props.logout();
+    async onLogout() {
+        try {
+            const logoutStatus = await this.props.logout();
+
+            if (logoutStatus === true) {
+                this.props.history.push('/');
+                this.props.history.go();
+            }
+        } catch (err) {
+            console.log(err);
+        }
     }
 
     render() {
@@ -225,4 +236,4 @@ class Nav extends Component {
     }
 }
 
-export default Nav;
+export default withRouter(Nav);

@@ -143,27 +143,31 @@ class App extends React.Component {
     }
 
     logout() {
-        const {user} = this.state;
+        return new Promise((resolve, reject) => {
+            const {user} = this.state;
 
-        fetch(`${this.API_URL}logout`, {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${user.api_token}`
-            }
-        }).then((response) => {
-            response.json()
-                .then(() => {
-                    if (response.status === 200 || response.status === 401) {
-                        localStorage.removeItem('user');
+            fetch(`${this.API_URL}logout`, {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${user.api_token}`
+                }
+            }).then((response) => {
+                response.json()
+                    .then(() => {
+                        if (response.status === 200 || response.status === 401) {
+                            localStorage.removeItem('user');
 
-                        this.setState({
-                            user: null
-                        })
-                    }
-                })
-        }).catch(err => console.log(err));
+                            this.setState({
+                                user: null
+                            })
+
+                            resolve(true);
+                        }
+                    })
+            }).catch(err => reject(err));
+        })
     }
 
     // the render method uses JSX syntax to output the UI as HTML

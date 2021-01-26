@@ -103,6 +103,7 @@ class Login extends React.Component {
                     this.resetLoginForm();
                     // send back to home on successful login
                     this.props.history.push('/');
+                    this.props.history.go();
                 }
             } catch (e) {
                 this.setState({
