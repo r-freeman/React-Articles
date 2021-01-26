@@ -10,7 +10,8 @@ class Article extends React.Component {
         super(props);
 
         this.state = {
-            article: null
+            article: null,
+            fetchingComments: false
         }
 
         this.getArticle = this.getArticle.bind(this);
@@ -30,7 +31,8 @@ class Article extends React.Component {
 
         if (article !== null) {
             this.setState({
-                article
+                article,
+                fetchingComments: true
             }, this.fetchComments)
         } else {
             this.props.history.push('/');
@@ -67,7 +69,8 @@ class Article extends React.Component {
                             }
 
                             this.setState({
-                                article
+                                article,
+                                fetchingComments: false
                             })
                         }
                     })
@@ -82,7 +85,7 @@ class Article extends React.Component {
     }
 
     render() {
-        const {article} = this.state;
+        const {article, fetchingComments} = this.state;
         const {user} = this.props;
         const isLoggedIn = user !== null;
 
@@ -153,9 +156,24 @@ class Article extends React.Component {
                             <p>{article.body}</p>
                         </div>
                         {isLoggedIn &&
-                        <CommentList
-                            user={user}
-                            comments={article.comments}/>
+                        <div>
+                            {fetchingComments &&
+                            <div className="mx-auto my-16 flex justify-center">
+                                <svg className="animate-spin h-12 w-12 text-indigo-600"
+                                     xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                    <circle className="opacity-25" cx="12" cy="12" r="10"
+                                            stroke="currentColor" strokeWidth="4"/>
+                                    <path className="opacity-75" fill="currentColor"
+                                          d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"/>
+                                </svg>
+                            </div>
+                            }
+                            {!fetchingComments &&
+                            <CommentList
+                                user={user}
+                                comments={article.comments}/>
+                            }
+                        </div>
                         }
                     </div>
                 </div>
