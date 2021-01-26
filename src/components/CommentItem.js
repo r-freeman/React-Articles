@@ -24,7 +24,7 @@ class CommentItem extends React.Component {
         const {comment} = this.props;
 
         return (
-            <div className="flex mt-8">
+            <div className="flex mt-8 group">
                 <div className="mr-4 flex-shrink-0">
                     <img
                         src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
@@ -38,7 +38,7 @@ class CommentItem extends React.Component {
                         <div className="relative inline-block text-left">
                             <div>
                                 <button
-                                    className="flex items-center text-gray-400 hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-indigo-500"
+                                    className="flex items-center text-gray-400 hover:text-gray-600 opacity-0 group-hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-indigo-500"
                                     id="options-menu" aria-haspopup="true" aria-expanded="true"
                                     onFocus={this.toggleMenu}
                                     onBlur={this.toggleMenu}>
@@ -66,7 +66,7 @@ class CommentItem extends React.Component {
                                         <button
                                             className="group w-full flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
                                             role="menuitem">
-                                            <svg className="mr-3 h-5 w-5 text-red-400 group-hover:text-red-500"
+                                            <svg className="mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500"
                                                  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
                                                  fill="currentColor" aria-hidden="true">
                                                 <path fillRule="evenodd"
