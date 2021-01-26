@@ -12,6 +12,10 @@ Articles
 
 ![Articles](https://ryanfreeman.dev/wordpress/wp-content/uploads/2021/01/localhost_3000_articles-2.png)
 
+Article with comments
+
+![Article with comments](https://ryanfreeman.dev/wordpress/wp-content/uploads/2021/01/localhost_3000_articles_1-1.png)
+
 Login
 
 ![Login](https://ryanfreeman.dev/wordpress/wp-content/uploads/2021/01/localhost_3000_login-1.png)
