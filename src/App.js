@@ -196,6 +196,7 @@ class App extends React.Component {
                     <Route exact path='/articles/:id'
                            render={(props) =>
                                (<Article {...props}
+                                         user={user}
                                          articles={articles}
                                          comments={comments}/>)}/>
                     <Route exact path='/login'>
