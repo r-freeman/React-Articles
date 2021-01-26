@@ -94,7 +94,7 @@ class Article extends React.Component {
                 {article !== null &&
                 <div>
                     <div className="-mt-4 mb-8 md:absolute md:top-0 md:right-0 md:p-10 md:my-auto">
-                        {isLoggedIn &&
+                        {(isLoggedIn && user.id === article.user.id) &&
                         <div className="flex justify-center">
                             <span className="relative z-0 inline-flex shadow-sm rounded-md -space-x-px">
                               <button type="button"
