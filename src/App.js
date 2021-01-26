@@ -35,13 +35,11 @@ class App extends React.Component {
         this.register = this.register.bind(this);
         this.fetchArticles = this.fetchArticles.bind(this);
         this.fetchCategories = this.fetchCategories.bind(this);
-        this.fetchComments = this.fetchComments.bind(this);
     }
 
     componentDidMount() {
         this.fetchArticles();
         this.fetchCategories();
-        this.fetchComments();
     }
 
     fetchArticles() {
@@ -58,24 +56,6 @@ class App extends React.Component {
             .then(data => this.setState({
                 categories: data
             }))
-    }
-
-    fetchComments() {
-        const {user} = this.state;
-
-        if (user !== null) {
-            fetch(`${this.API_URL}comments`, {
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${user.api_token}`
-                }
-            })
-                .then(res => res.json())
-                .then(data => this.setState({
-                    comments: data
-                })).catch(err => console.log(err));
-        }
     }
 
     login(email, password, remember_me) {
@@ -198,7 +178,7 @@ class App extends React.Component {
                                (<Article {...props}
                                          user={user}
                                          articles={articles}
-                                         comments={comments}/>)}/>
+                               />)}/>
                     <Route exact path='/login'>
                         <Login
                             user={user}

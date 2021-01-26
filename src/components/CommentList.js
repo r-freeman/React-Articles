@@ -29,9 +29,9 @@ class CommentList extends React.Component {
     }
 
     render() {
-        const {comments} = this.props;
+        const {comments, user} = this.props;
         const {sortOrder} = this.state;
-        const hasComments = (comments !== null && comments.length > 0);
+        const hasComments = comments !== null;
         const sortedComments = _.orderBy(comments, ['id'], sortOrder);
 
         return (
@@ -69,6 +69,7 @@ class CommentList extends React.Component {
                         return (
                             <CommentItem
                                 comment={comment}
+                                user={user}
                                 key={comment.id}/>
                         )
                     })}
