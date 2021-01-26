@@ -1,8 +1,26 @@
 import React from 'react';
 import DayJS from 'react-dayjs';
+import {Transition} from '@headlessui/react';
 
 class CommentItem extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            isMenuOpen: false
+        }
+
+        this.toggleMenu = this.toggleMenu.bind(this);
+    }
+
+    toggleMenu() {
+        this.setState(prevState => ({
+            isMenuOpen: !prevState.isMenuOpen
+        }));
+    }
+
     render() {
+        const {isMenuOpen} = this.state;
         const {comment} = this.props;
 
         return (
@@ -17,12 +35,58 @@ class CommentItem extends React.Component {
                     <div className="flex justify-between">
                         <h4
                             className="text-sm font-semibold">Lorem ipsum</h4>
-                        <span
-                            className="ml-2 text-sm font-medium text-indigo-600">
-                                                        <DayJS format="MMM d, YYYY">{comment.created_at}</DayJS>
-                                                    </span>
+                        <div className="relative inline-block text-left">
+                            <div>
+                                <button
+                                    className="flex items-center text-gray-400 hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-indigo-500"
+                                    id="options-menu" aria-haspopup="true" aria-expanded="true"
+                                    onFocus={this.toggleMenu}
+                                    onBlur={this.toggleMenu}>
+                                    <span className="sr-only">Comment options</span>
+                                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                         xmlns="http://www.w3.org/2000/svg">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
+                                              d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"/>
+                                    </svg>
+                                </button>
+                            </div>
+                            <Transition
+                                show={isMenuOpen}
+                                enter="transition ease-out duration-100"
+                                enterFrom="transform opacity-0 scale-95"
+                                enterTo="transform opacity-100 scale-100"
+                                leave="transition ease-out duration-75"
+                                leaveFrom="transform opacity-100 scale-100"
+                                leaveTo="transform opacity-0 scale-95"
+                            >
+                                <div
+                                    className="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-10">
+                                    <div className="py-1" role="menu" aria-orientation="vertical"
+                                         aria-labelledby="options-menu">
+                                        <button
+                                            className="group w-full flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                                            role="menuitem">
+                                            <svg className="mr-3 h-5 w-5 text-red-400 group-hover:text-red-500"
+                                                 xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
+                                                 fill="currentColor" aria-hidden="true">
+                                                <path fillRule="evenodd"
+                                                      d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
+                                                      clipRule="evenodd"/>
+                                            </svg>
+                                            Delete
+                                        </button>
+                                    </div>
+                                </div>
+                            </Transition>
+                        </div>
                     </div>
                     <p className="text-gray-500 prose-sm">{comment.body}</p>
+                    <div className="mt-4">
+                        <span
+                            className="text-sm font-medium text-indigo-600">
+                                    <DayJS format="MMM d, YYYY">{comment.created_at}</DayJS>
+                            </span>
+                    </div>
                 </div>
             </div>
         )
