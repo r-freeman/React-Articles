@@ -2,7 +2,7 @@ import React from 'react';
 import {withRouter} from 'react-router-dom';
 
 class Register extends React.Component {
-    DEFAULTS = {
+    defaultState = {
         name: null,
         email: null,
         password: null,
@@ -17,7 +17,7 @@ class Register extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = this.DEFAULTS;
+        this.state = this.defaultState;
         this.validateName = this.validateName.bind(this);
         this.validateEmail = this.validateEmail.bind(this);
         this.validatePassword = this.validatePassword.bind(this);
@@ -168,7 +168,7 @@ class Register extends React.Component {
 
     // reset register form and state
     resetRegisterForm() {
-        this.setState(this.DEFAULTS);
+        this.setState(this.defaultState);
         this.registerForm.reset();
     }
 

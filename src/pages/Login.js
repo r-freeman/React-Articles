@@ -2,7 +2,7 @@ import React from 'react';
 import {withRouter} from 'react-router-dom';
 
 class Login extends React.Component {
-    DEFAULTS = {
+    defaultState = {
         email: null,
         password: null,
         remember_me: true,
@@ -15,7 +15,7 @@ class Login extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = this.DEFAULTS;
+        this.state = this.defaultState;
 
         this.validateEmail = this.validateEmail.bind(this);
         this.validatePassword = this.validatePassword.bind(this);
@@ -116,7 +116,7 @@ class Login extends React.Component {
 
     // reset login form and state
     resetLoginForm() {
-        this.setState(this.DEFAULTS);
+        this.setState(this.defaultState);
         this.loginForm.reset();
     }
 
