@@ -41,22 +41,36 @@ class Nav extends Component {
 
         return (
             <nav className="bg-gray-800">
-                <div className="max-w-full mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="max-w-full mx-auto px-8">
                     <div className="flex items-center justify-between h-16">
                         <div className="flex items-center">
                             <div className="flex-shrink-0">
-                                <NavLink
-                                    exact
-                                    to="/"
-                                    className="text-white">
-                                    <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                                         xmlns="http://www.w3.org/2000/svg">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
-                                              d="M6 5c7.18 0 13 5.82 13 13M6 11a7 7 0 017 7m-6 0a1 1 0 11-2 0 1 1 0 012 0z"/>
-                                    </svg>
-                                </NavLink>
+                                <div className="flex items-center">
+                                    <NavLink
+                                        exact
+                                        to="/"
+                                        className="text-white">
+                                        <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                             xmlns="http://www.w3.org/2000/svg">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
+                                                  d="M6 5c7.18 0 13 5.82 13 13M6 11a7 7 0 017 7m-6 0a1 1 0 11-2 0 1 1 0 012 0z"/>
+                                        </svg>
+                                    </NavLink>
+                                    {isLoggedIn &&
+                                    <button type="button"
+                                            className="sm:hidden ml-4 relative inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-500 hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-indigo-500"
+                                            onClick={this.props.toggleCreateArticleModal}>
+                                        <svg className="-ml-1 -mr-1 md:mr-2 h-5 w-5" fill="none" stroke="currentColor"
+                                             viewBox="0 0 24 24"
+                                             xmlns="http://www.w3.org/2000/svg">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
+                                                  d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
+                                        </svg>
+                                    </button>
+                                    }
+                                </div>
                             </div>
-                            <div className="hidden md:ml-6 md:flex md:items-center md:space-x-4">
+                            <div className="hidden sm:ml-6 sm:flex sm:items-center sm:space-x-4">
                                 <NavLink
                                     exact
                                     to="/"
@@ -72,14 +86,15 @@ class Nav extends Component {
                                 </NavLink>
                                 {isLoggedIn &&
                                 <button type="button"
-                                        className="relative inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-500 hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-indigo-500">
-                                    <svg className="-ml-1 mr-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg"
-                                         viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                        <path fillRule="evenodd"
-                                              d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
-                                              clipRule="evenodd"/>
+                                        className="relative inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-500 hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-indigo-500"
+                                        onClick={this.props.toggleCreateArticleModal}>
+                                    <svg className="-ml-1 -mr-1 md:mr-2 h-5 w-5" fill="none" stroke="currentColor"
+                                         viewBox="0 0 24 24"
+                                         xmlns="http://www.w3.org/2000/svg">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
+                                              d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
                                     </svg>
-                                    <span>New Article</span>
+                                    <span className="hidden md:block">Create Article</span>
                                 </button>
                                 }
                             </div>
@@ -87,15 +102,11 @@ class Nav extends Component {
                         <div className="hidden sm:ml-6 sm:block">
                             <div className="flex items-center">
                                 {isLoggedIn &&
-                                <button
-                                    className="bg-gray-800 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
-                                    <span className="sr-only">View notifications</span>
-                                    <svg className="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none"
-                                         viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
-                                              d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
-                                    </svg>
-                                </button>
+                                <div>
+                                    <div className="text-sm font-medium text-gray-400">
+                                        {user.name}
+                                    </div>
+                                </div>
                                 }
                                 {isLoggedIn &&
                                 <Dropdown
@@ -166,10 +177,6 @@ class Nav extends Component {
                                     className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">
                                     Articles
                                 </NavLink>
-                                <button type="button"
-                                        className="mt-1 w-full text-left px-3 py-2 shadow-sm text-base font-medium rounded-md text-white bg-indigo-500 hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-indigo-500">
-                                    <span>New Article</span>
-                                </button>
                             </div>
                             }
                             {!isLoggedIn &&
@@ -202,21 +209,12 @@ class Nav extends Component {
                                 </div>
                                 <div className="ml-3">
                                     <div className="text-base font-medium text-white">
-                                        {this.props.user.name}
+                                        {user.name}
                                     </div>
                                     <div className="text-sm font-medium text-gray-400">
-                                        {this.props.user.email}
+                                        {user.email}
                                     </div>
                                 </div>
-                                <button
-                                    className="ml-auto flex-shrink-0 bg-gray-800 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
-                                    <span className="sr-only">View notifications</span>
-                                    <svg className="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none"
-                                         viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
-                                              d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
-                                    </svg>
-                                </button>
                             </div>
                             <div className="mt-3 px-2 space-y-1">
                                 <NavLink
