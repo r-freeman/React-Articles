@@ -3,6 +3,7 @@ import {Route, Switch} from 'react-router-dom';
 
 // components
 import Nav from 'components/Nav';
+import CreateArticleModal from 'components/CreateArticleModal';
 
 // pages
 import Home from './pages/Home';
@@ -27,7 +28,8 @@ class App extends React.Component {
             user,
             articles: [],
             categories: [],
-            comments: []
+            comments: [],
+            createArticleModal: false
         }
 
         this.login = this.login.bind(this);
@@ -35,6 +37,8 @@ class App extends React.Component {
         this.register = this.register.bind(this);
         this.fetchArticles = this.fetchArticles.bind(this);
         this.fetchCategories = this.fetchCategories.bind(this);
+        this.toggleCreateArticleModal = this.toggleCreateArticleModal.bind(this);
+        this.createArticle = this.createArticle.bind(this);
     }
 
     componentDidMount() {
@@ -150,16 +154,62 @@ class App extends React.Component {
         })
     }
 
+    createArticle(title, body, categoryId) {
+        return new Promise((resolve, reject) => {
+            const {user} = this.state;
+
+            fetch(`${this.API_URL}articles`, {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${user.api_token}`
+                },
+                body: JSON.stringify({"title": title, "body": body, "category_id": categoryId})
+            }).then((response) => {
+                response.json()
+                    .then(res => {
+                        if (response.status === 201) {
+                            this.fetchArticles();
+                            resolve(true);
+                        } else if (response.status === 422) {
+                            reject(false);
+                        }
+                    })
+            }).catch(err => {
+                reject(err);
+            })
+        })
+    }
+
+    toggleCreateArticleModal() {
+        this.setState(prevState => ({
+            createArticleModal: !prevState.createArticleModal
+        }), () => {
+            if (this.state.createArticleModal) {
+                document.body.classList.add('no-scroll');
+            } else {
+                document.body.classList.remove('no-scroll');
+            }
+        })
+    }
+
     // the render method uses JSX syntax to output the UI as HTML
     // JavaScript expressions can be used in JSX using curly braces
     render() {
-        const {user, articles, categories, comments} = this.state;
+        const {user, articles, categories, createArticleModal} = this.state;
 
         return (
             <div className="App">
+                <CreateArticleModal
+                    isVisible={createArticleModal}
+                    categories={categories}
+                    toggleCreateArticleModal={this.toggleCreateArticleModal}
+                    createArticle={this.createArticle}/>
                 <header>
                     <Nav user={user}
-                         logout={this.logout}/>
+                         logout={this.logout}
+                         toggleCreateArticleModal={this.toggleCreateArticleModal}/>
                 </header>
                 <Switch>
                     <Route exact path='/'>
@@ -177,8 +227,7 @@ class App extends React.Component {
                            render={(props) =>
                                (<Article {...props}
                                          user={user}
-                                         articles={articles}
-                               />)}/>
+                                         articles={articles}/>)}/>
                     <Route exact path='/login'>
                         <Login
                             user={user}
