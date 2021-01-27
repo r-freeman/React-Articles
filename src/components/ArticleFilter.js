@@ -21,11 +21,11 @@ class ArticleFilter extends Component {
     }
 
     componentDidMount() {
-        document.addEventListener('keydown', this.handleEscape)
+        this.articleFilter.addEventListener('keydown', this.handleEscape);
     }
 
     componentWillUnmount() {
-        document.removeEventListener('keydown', this.handleEscape)
+        this.articleFilter.addEventListener('keydown', this.handleEscape);
     }
 
     toggleFilter() {
@@ -46,7 +46,7 @@ class ArticleFilter extends Component {
         const sortOrder = this.props.sortOrder;
 
         return (
-            <div>
+            <div ref={ref => this.articleFilter = ref}>
                 <div className={`${filterOpen ? 'inset-0' : ''} fixed overflow-hidden z-10`}>
                     <div className={`${filterOpen ? 'inset-0' : ''} absolute overflow-hidden`}>
                         <div className="absolute inset-0 bg-gray-700 bg-opacity-50"
