@@ -35,7 +35,7 @@ class CommentItem extends React.Component {
                 <div className="-mt-1 space-y-2">
                     <div className="flex justify-between">
                         <h4
-                            className="text-sm font-semibold">Lorem ipsum</h4>
+                            className="text-base font-semibold">Lorem ipsum</h4>
                         <div className="relative inline-block text-left">
                             <div>
                                 <button
