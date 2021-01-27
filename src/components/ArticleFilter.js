@@ -49,7 +49,7 @@ class ArticleFilter extends Component {
             <div>
                 <div className={`${filterOpen ? 'inset-0' : ''} fixed overflow-hidden z-10`}>
                     <div className={`${filterOpen ? 'inset-0' : ''} absolute overflow-hidden`}>
-                        <div className="absolute inset-0 bg-gray-700 bg-opacity-25"
+                        <div className="absolute inset-0 bg-gray-700 bg-opacity-50"
                              aria-hidden="true"
                              onClick={this.toggleFilter}/>
                         <section className="absolute inset-y-0 right-0 pl-10 max-w-full flex"
