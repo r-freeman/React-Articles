@@ -58,7 +58,7 @@ class Nav extends Component {
                                     </NavLink>
                                     {isLoggedIn &&
                                     <button type="button"
-                                            className="sm:hidden ml-4 relative inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-500 hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-indigo-500"
+                                            className="sm:hidden ml-4 relative inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-green-500 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-green-500"
                                             onClick={this.props.toggleCreateArticleModal}>
                                         <svg className="-ml-1 -mr-1 md:mr-2 h-5 w-5" fill="none" stroke="currentColor"
                                              viewBox="0 0 24 24"
@@ -86,7 +86,7 @@ class Nav extends Component {
                                 </NavLink>
                                 {isLoggedIn &&
                                 <button type="button"
-                                        className="relative inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-500 hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-indigo-500"
+                                        className="relative inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-green-500 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-green-500"
                                         onClick={this.props.toggleCreateArticleModal}>
                                     <svg className="-ml-1 -mr-1 md:mr-2 h-5 w-5" fill="none" stroke="currentColor"
                                          viewBox="0 0 24 24"
