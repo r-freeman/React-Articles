@@ -15,6 +15,8 @@ class CreateArticleModal extends React.Component {
 
         this.state = this.defaultState;
 
+        this.createArticleModal = React.createRef();
+
         this.validateTitle = this.validateTitle.bind(this);
         this.validateBody = this.validateBody.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
@@ -118,12 +120,12 @@ class CreateArticleModal extends React.Component {
 
     componentDidMount() {
         // use refs instead to make event listeners on the virtual DOM
-        this.createArticleModal.addEventListener('keydown', this.handleEscape);
+        this.createArticleModal.current.addEventListener('keydown', this.handleEscape);
     }
 
     componentWillUnmount() {
         // use refs instead to make event listeners on the virtual DOM
-        this.createArticleModal.removeEventListener('keydown', this.handleEscape);
+        this.createArticleModal.current.removeEventListener('keydown', this.handleEscape);
     }
 
     handleEscape(e) {
@@ -142,7 +144,7 @@ class CreateArticleModal extends React.Component {
         const normalStyle = "border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500";
 
         return (
-            <div ref={ref => this.createArticleModal = ref}>
+            <div ref={this.createArticleModal}>
                 {isVisible &&
                 <div className="fixed z-10 inset-0 overflow-y-auto">
                     <div
@@ -189,7 +191,8 @@ class CreateArticleModal extends React.Component {
                                                        maxLength="48"
                                                        required
                                                        ref={ref => this.title = ref}
-                                                       onChange={this.handleInputChange}/>
+                                                       onChange={this.handleInputChange}
+                                                       autoFocus={true}/>
                                                 <div
                                                     className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
                                                     {(title !== null && titleError !== '') &&
@@ -255,14 +258,11 @@ class CreateArticleModal extends React.Component {
                                                id="body-error">{bodyError}</p>
                                             }
                                         </div>
-                                        <div className="mt-5 sm:mt-6 flex justify-between items-center">
+                                        <div
+                                            className="mt-5 sm:mt-6 sm:grid sm:grid-cols-2 sm:gap-3 sm:grid-flow-row-dense">
                                             <button type="button"
-                                                    className="inline-flex justify-center w-1/2 px-4 py-2 text-gray-400 hover:text-gray-600 font-medium focus:outline-none text-sm"
-                                                    onClick={this.reset}>
-                                                Cancel
-                                            </button>
-                                            <button type="submit"
-                                                    className="inline-flex justify-center w-1/2 rounded-md border border-transparent shadow-sm px-4 py-2 bg-indigo-600 font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 text-sm">
+                                                    className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-indigo-600 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:col-start-2 sm:text-sm"
+                                                    onClick={this.onCreateArticleSubmit}>
                                                 {isCreatingArticle &&
                                                 <svg className="animate-spin inline-flex h-5 w-5 text-white"
                                                      xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
@@ -275,6 +275,11 @@ class CreateArticleModal extends React.Component {
                                                 {!isCreatingArticle &&
                                                 <span className="h-5">Submit</span>
                                                 }
+                                            </button>
+                                            <button type="button"
+                                                    className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:col-start-1 sm:text-sm"
+                                                    onClick={this.reset}>
+                                                Cancel
                                             </button>
                                         </div>
                                     </form>
