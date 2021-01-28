@@ -11,7 +11,7 @@ class Article extends React.Component {
 
         this.state = {
             article: null,
-            fetchingComments: false
+            isFetchingComments: false
         }
 
         this.getArticle = this.getArticle.bind(this);
@@ -32,8 +32,11 @@ class Article extends React.Component {
         if (article !== null) {
             this.setState({
                 article,
-                fetchingComments: true
-            }, this.fetchComments)
+                isFetchingComments: true
+            }, () => {
+                this.props.setCurrentArticleId(article.id);
+                this.fetchComments();
+            })
         } else {
             this.props.history.push('/');
             this.props.history.go();
@@ -70,7 +73,7 @@ class Article extends React.Component {
 
                             this.setState({
                                 article,
-                                fetchingComments: false
+                                isFetchingComments: false
                             })
                         }
                     })
@@ -85,7 +88,7 @@ class Article extends React.Component {
     }
 
     render() {
-        const {article, fetchingComments} = this.state;
+        const {article, isFetchingComments} = this.state;
         const {user} = this.props;
         const isLoggedIn = user !== null;
 
@@ -108,7 +111,8 @@ class Article extends React.Component {
                                 </svg>
                               </button>
                               <button type="button"
-                                      className="relative inline-flex items-center px-4 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-400 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500">
+                                      className="relative inline-flex items-center px-4 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-400 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500"
+                                      onClick={this.props.toggleDeleteArticleModal}>
                                 <span className="sr-only">Delete</span>
                                   <svg className="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
                                        fill="currentColor"
@@ -157,7 +161,7 @@ class Article extends React.Component {
                         </div>
                         {isLoggedIn &&
                         <div>
-                            {fetchingComments &&
+                            {isFetchingComments &&
                             <div className="mx-auto my-16 flex justify-center">
                                 <svg className="animate-spin h-12 w-12 text-indigo-600"
                                      xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
@@ -168,7 +172,7 @@ class Article extends React.Component {
                                 </svg>
                             </div>
                             }
-                            {!fetchingComments &&
+                            {!isFetchingComments &&
                             <CommentList
                                 user={user}
                                 comments={article.comments}/>

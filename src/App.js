@@ -4,6 +4,7 @@ import {Route, Switch} from 'react-router-dom';
 // components
 import Nav from 'components/Nav';
 import CreateArticleModal from 'components/CreateArticleModal';
+import DeleteArticleModal from 'components/DeleteArticleModal';
 
 // pages
 import Home from './pages/Home';
@@ -29,7 +30,9 @@ class App extends React.Component {
             articles: [],
             categories: [],
             comments: [],
-            createArticleModal: false
+            createArticleModal: false,
+            deleteArticleModal: false,
+            currentArticleId: null
         }
 
         this.login = this.login.bind(this);
@@ -39,6 +42,9 @@ class App extends React.Component {
         this.fetchCategories = this.fetchCategories.bind(this);
         this.toggleCreateArticleModal = this.toggleCreateArticleModal.bind(this);
         this.createArticle = this.createArticle.bind(this);
+        this.toggleDeleteArticleModal = this.toggleDeleteArticleModal.bind(this);
+        this.deleteArticle = this.deleteArticle.bind(this);
+        this.setCurrentArticleId = this.setCurrentArticleId.bind(this);
     }
 
     componentDidMount() {
@@ -194,10 +200,57 @@ class App extends React.Component {
         })
     }
 
+    toggleDeleteArticleModal() {
+        this.setState(prevState => ({
+            deleteArticleModal: !prevState.deleteArticleModal
+        }), () => {
+            if (this.state.deleteArticleModal) {
+                document.body.classList.add('no-scroll');
+            } else {
+                document.body.classList.remove('no-scroll');
+            }
+        })
+    }
+
+    deleteArticle() {
+        return new Promise((resolve, reject) => {
+            const {user, currentArticleId} = this.state;
+
+            if (user !== null) {
+                fetch(`${this.API_URL}articles/${currentArticleId}`, {
+                    method: 'delete',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${user.api_token}`
+                    }
+                }).then(response => {
+                    if (response.status === 204) {
+                        // article successfully deleted
+                        this.fetchArticles();
+                        resolve(true);
+                    } else {
+                        reject(false);
+                    }
+                }).catch(err => {
+                    reject(err);
+                })
+            }
+        })
+    }
+
+    // method passed as prop to Article component so we know which
+    // article is being viewed, useful for edit and delete actions
+    setCurrentArticleId(articleId) {
+        this.setState({
+            currentArticleId: articleId
+        })
+    }
+
     // the render method uses JSX syntax to output the UI as HTML
     // JavaScript expressions can be used in JSX using curly braces
     render() {
-        const {user, articles, categories, createArticleModal} = this.state;
+        const {user, articles, categories, createArticleModal, deleteArticleModal} = this.state;
 
         return (
             <div className="App">
@@ -206,6 +259,10 @@ class App extends React.Component {
                     categories={categories}
                     toggleCreateArticleModal={this.toggleCreateArticleModal}
                     createArticle={this.createArticle}/>
+                <DeleteArticleModal
+                    isVisible={deleteArticleModal}
+                    toggleDeleteArticleModal={this.toggleDeleteArticleModal}
+                    deleteArticle={this.deleteArticle}/>
                 <header>
                     <Nav user={user}
                          logout={this.logout}
@@ -227,7 +284,9 @@ class App extends React.Component {
                            render={(props) =>
                                (<Article {...props}
                                          user={user}
-                                         articles={articles}/>)}/>
+                                         articles={articles}
+                                         toggleDeleteArticleModal={this.toggleDeleteArticleModal}
+                                         setCurrentArticleId={this.setCurrentArticleId}/>)}/>
                     <Route exact path='/login'>
                         <Login
                             user={user}
