@@ -25,6 +25,7 @@ class Register extends React.Component {
         this.handleInputChange = this.handleInputChange.bind(this);
         this.onRegisterSubmit = this.onRegisterSubmit.bind(this);
         this.resetRegisterForm = this.resetRegisterForm.bind(this);
+        this.goHome = this.goHome.bind(this);
     }
 
     validateName() {
@@ -151,11 +152,9 @@ class Register extends React.Component {
                 let registerStatus = await this.props.register(name, email, password)
 
                 if (registerStatus === true) {
-                    // reset the register form
+                    // reset the register form and go home
                     this.resetRegisterForm();
-                    // send back to home on successful registration
-                    this.props.history.push('/');
-                    this.props.history.go();
+                    this.goHome();
                 }
             } catch (e) {
                 this.setState({
@@ -164,6 +163,11 @@ class Register extends React.Component {
                 console.log(e);
             }
         }
+    }
+
+    goHome() {
+        this.props.history.push('/');
+        this.props.history.go();
     }
 
     // reset register form and state

@@ -22,6 +22,7 @@ class Login extends React.Component {
         this.handleInputChange = this.handleInputChange.bind(this);
         this.onLoginSubmit = this.onLoginSubmit.bind(this);
         this.resetLoginForm = this.resetLoginForm.bind(this);
+        this.goHome = this.goHome.bind(this);
     }
 
     validateEmail() {
@@ -99,11 +100,9 @@ class Login extends React.Component {
                 let loginStatus = await this.props.login(email, password, remember_me)
 
                 if (loginStatus === true) {
-                    // reset the login form
+                    // reset the login form and go home
                     this.resetLoginForm();
-                    // send back to home on successful login
-                    this.props.history.push('/');
-                    this.props.history.go();
+                    this.goHome();
                 }
             } catch (e) {
                 this.setState({
@@ -112,6 +111,11 @@ class Login extends React.Component {
                 console.log(e);
             }
         }
+    }
+
+    goHome() {
+        this.props.history.push('/');
+        this.props.history.go();
     }
 
     // reset login form and state
