@@ -161,8 +161,8 @@ class CreateArticleModal extends React.Component {
                             role="dialog" aria-modal="true" aria-labelledby="modal-headline">
                             <div>
                                 <div
-                                    className="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-indigo-100">
-                                    <svg className="h-6 w-6 text-indigo-600" fill="none" stroke="currentColor"
+                                    className="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-500">
+                                    <svg className="h-6 w-6 text-white" fill="none" stroke="currentColor"
                                          viewBox="0 0 24 24"
                                          xmlns="http://www.w3.org/2000/svg">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
@@ -261,7 +261,7 @@ class CreateArticleModal extends React.Component {
                                         <div
                                             className="mt-5 sm:mt-6 sm:grid sm:grid-cols-2 sm:gap-3 sm:grid-flow-row-dense">
                                             <button type="button"
-                                                    className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-indigo-600 font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:col-start-2 text-sm"
+                                                    className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-500 font-medium text-white hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:col-start-2 text-sm"
                                                     onClick={this.onCreateArticleSubmit}>
                                                 {isCreatingArticle &&
                                                 <svg className="animate-spin inline-flex h-5 w-5 text-white"
