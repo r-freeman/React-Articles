@@ -2,6 +2,7 @@ api/
 node_modules/
 build/
 .idea/
+debug.log
 
 .eslintcache
 
