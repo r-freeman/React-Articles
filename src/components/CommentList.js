@@ -31,7 +31,7 @@ class CommentList extends React.Component {
     render() {
         const {comments, user} = this.props;
         const {sortOrder} = this.state;
-        const hasComments = comments !== null;
+        const hasComments = comments.length > 0;
         const sortedComments = _.orderBy(comments, ['id'], sortOrder);
 
         return (
